@@ -1,10 +1,10 @@
 # Python
 __pycache__/
 *.py[cod]
-*.env
+.env
 
 # Virtual environment
 venv/
 
 # Docker
-*.log
+.log
