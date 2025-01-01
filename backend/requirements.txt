@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 openai
-pyodbc
+pyodbc==5.2.0
 azure-search-documents
 azure-core
 azure-identity

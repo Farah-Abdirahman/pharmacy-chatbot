@@ -29,18 +29,21 @@ az cognitiveservices account create `
     --yes
 
 # Create SQL Server and Database
-az sql server create `
-    --name $SQL_SERVER_NAME `
-    --resource-group $RESOURCE_GROUP `
-    --location $LOCATION `
-    --admin-user $ADMIN_USER `
-    --admin-password $ADMIN_PASSWORD
+az mysql flexible-server create `
+    --name pharmacy-sql-server `
+    --resource-group pharmacy-chatbot-rg `
+    --location westus `
+    --admin-user adminuser `
+    --admin-password adminpassword `
+    --sku-name Standard_B1ms `
+    --version 5.7 `
+    --storage-size 32 `
+    --public-access none
 
-az sql db create `
-    --server $SQL_SERVER_NAME `
-    --name $SQL_DB_NAME `
-    --resource-group $RESOURCE_GROUP `
-    --service-objective S0
+az mysql flexible-server db create `
+    --resource-group pharmacy-chatbot-rg `
+    --server-name pharmacy-sql-server `
+    --database-name pharmacydb
 
 # Create Azure Cognitive Search
 az search service create `

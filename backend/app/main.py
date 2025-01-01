@@ -2,23 +2,30 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import openai
 import pyodbc
+import sys
+print("Pyodbc version:", pyodbc.version)
 import os
 from azure.search.documents import SearchClient
 from azure.core.credentials import AzureKeyCredential
 from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
 
+
+
+
 # Initialize FastAPI app
 app = FastAPI()
 
+
 # Configurations
 key_vault_name = os.getenv("KEY_VAULT_NAME")
+print(f"Key Vault Name: {key_vault_name}")
 key_vault_url = f"https://{key_vault_name}.vault.azure.net"
 credential = DefaultAzureCredential()
 secret_client = SecretClient(vault_url=key_vault_url, credential=credential)
 openai.api_key = secret_client.get_secret("OpenAI-API-Key").value
 
-search_service_endpoint = os.getenv("SEARCH_SERVICE_ENDPOINT")
+search_service_endpoint = secret_client.get_secret("Search-Service-Endpoint").value
 search_service_api_key = secret_client.get_secret("Search-Service-Api-Key").value
 search_client = SearchClient(endpoint=search_service_endpoint, index_name="pharmacy-index", credential=AzureKeyCredential(search_service_api_key))
 
