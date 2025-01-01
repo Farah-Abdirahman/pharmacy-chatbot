@@ -45,7 +45,7 @@ Run the deployment script to create all required Azure resources:
 
 ```./azure-deploy.sh```
 
-## Step 5: Build and Push Docker Container Images
+## Step 4: Build and Push Docker Container Images
 Ensure Docker is running and build the backend and frontend images:
 Backend
 ```
